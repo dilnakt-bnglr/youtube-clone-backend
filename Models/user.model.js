@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+// Define the user schema
 const userSchema = new mongoose.Schema({
   userName: { type: String, required: true },
   email: {
@@ -14,6 +15,7 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: [true, "Password is required"] },
 });
 
+// Create a user model based on the defined schema
 const userModel = mongoose.model("user", userSchema);
 
 export default userModel;

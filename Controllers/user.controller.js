@@ -7,7 +7,9 @@ export async function userRegister(req, res) {
     const { userName, email, password } = req.body; // Destructuring the request body
     let data = await userModel.findOne({ email }); // Checking if the user with the given email already exists
     if (data) {
-      return res.status(400).json({ message: "User already exists" });
+      return res
+        .status(400)
+        .json({ message: "User with this email already exists" });
     }
     // Checking if the username already exists
     let name = await userModel.findOne({ userName });

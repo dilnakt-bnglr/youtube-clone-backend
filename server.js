@@ -1,8 +1,12 @@
 import express from "express";
 import { dbConnect } from "./dbConnection.js";
 import { userRoutes } from "./Routes/user.routes.js";
+import cors from "cors";
+
 // Creating an express server
 const app = new express();
+
+app.use(cors()); // Middleware to enable Cross-Origin Resource Sharing (CORS) for handling requests from different origins
 
 dbConnect(); // Establishing the db connection
 
