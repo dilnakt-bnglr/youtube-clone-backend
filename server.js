@@ -1,6 +1,7 @@
 import express from "express";
 import { dbConnect } from "./dbConnection.js";
 import { userRoutes } from "./Routes/user.routes.js";
+import { channelRoutes } from "./Routes/channel.routes.js";
 import cors from "cors";
 
 // Creating an express server
@@ -18,3 +19,4 @@ app.listen(5000, () => {
 });
 
 userRoutes(app);
+channelRoutes(app);
