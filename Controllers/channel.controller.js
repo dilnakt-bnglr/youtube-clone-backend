@@ -1,4 +1,5 @@
 import channelModel from "../Models/channel.model.js";
+import videoModel from "../Models/video.model.js";
 
 // Creating Channel
 export async function createChannel(req, res) {
@@ -39,6 +40,29 @@ export async function createChannel(req, res) {
           .status(400)
           .json({ message: "Failed to create channel" } || error);
       });
+  } catch (error) {
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+}
+
+// Fetching the channel details
+export async function getChannelById(req, res) {
+  try {
+    const channelId = req.params.id; // Get the channel id from request params
+    // Checking if the channel with the id exists
+    let channel = await channelModel.findById(channelId);
+    let videos;
+    // Checking if videos are there in the channel else sending appropriate response for failed operation
+    if (channel) {
+      videos = await videoModel.find({ channelId });
+    } else {
+      return res
+        .status(400)
+        .json({ message: "Failed to fetch Channel Details" });
+    }
+
+    // Sending an appropriate response based on the success
+    return res.status(200).json({ channelDetails: channel, videos });
   } catch (error) {
     return res.status(500).json({ message: "Internal Server Error" });
   }
