@@ -1,4 +1,5 @@
 import videoModel from "../Models/video.model.js";
+import channelModel from "../Models/channel.model.js";
 
 export async function addVideo(req, res) {
   try {
@@ -33,23 +34,44 @@ export async function addVideo(req, res) {
 
 export async function getVideos(req, res) {
   try {
-    let videos = await videoModel.find();
+    let videos = await videoModel.find(); // Getting all the videos
+    // Sending an appropriate response if video doesn't exist
     if (!videos) {
-      return res.status(400).json({ message: "Failed " });
+      return res.status(400).json({ message: "Failed to fetch videos" });
     }
-    return res.status(200).json({ videos });
+
+    // Fetch channel details for each video
+    const videosWithChannelName = await Promise.all(
+      videos.map(async (video) => {
+        const channelDetails = await channelModel.findById(video.channelId);
+        return {
+          ...video.toObject(),
+          channelName: channelDetails?.channelName || "Unknown",
+        };
+      }),
+    );
+    // sending response with video details
+    return res.status(200).json({ videos: videosWithChannelName });
   } catch (error) {
     return res.status(500).json({ message: "Internal Server Error" });
   }
 }
 
-export async function getVideos(req, res) {
+export async function getVideoById(req, res) {
   try {
-    let videos = await videoModel.find();
-    if (!videos) {
-      return res.status(400).json({ message: "Failed " });
+    const videoId = req.params.id; // Get the video id from request params
+    // Checking if the video with the id exists
+    const video = await videoModel.findById(videoId);
+    // Checking if videos exists and sending appropriate response for failed operation
+    if (!video) {
+      return res.status(400).json({ message: "Failed to fetch video" });
     }
-    return res.status(200).json({ videos });
+    // getting channel id from video details
+    const { channelId } = video;
+    // Finding the channel with channelId
+    const channelDetails = await channelModel.findById(channelId);
+    // Sending response with video and channel details
+    return res.status(200).json({ video, channelDetails });
   } catch (error) {
     return res.status(500).json({ message: "Internal Server Error" });
   }

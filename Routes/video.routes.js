@@ -1,4 +1,8 @@
-import { addVideo, getVideos } from "../Controllers/video.controller.js";
+import {
+  addVideo,
+  getVideoById,
+  getVideos,
+} from "../Controllers/video.controller.js";
 import { authenticateUser } from "../Middlewares/authenticateUser.js";
 
 // created routes for video endpoints
@@ -8,5 +12,5 @@ export const videoRoutes = (app) => {
   // GET- Fetching all videos
   app.get("/api/videos", getVideos);
   // GET - Fetching video details by Id
-  app.get("/api/video/:id");
+  app.get("/api/video/:id", getVideoById);
 };
