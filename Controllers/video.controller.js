@@ -30,3 +30,27 @@ export async function addVideo(req, res) {
     return res.status(500).json({ message: "Internal Server Error" });
   }
 }
+
+export async function getVideos(req, res) {
+  try {
+    let videos = await videoModel.find();
+    if (!videos) {
+      return res.status(400).json({ message: "Failed " });
+    }
+    return res.status(200).json({ videos });
+  } catch (error) {
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+}
+
+export async function getVideos(req, res) {
+  try {
+    let videos = await videoModel.find();
+    if (!videos) {
+      return res.status(400).json({ message: "Failed " });
+    }
+    return res.status(200).json({ videos });
+  } catch (error) {
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+}
