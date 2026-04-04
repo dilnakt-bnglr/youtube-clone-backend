@@ -3,7 +3,8 @@ import channelModel from "../Models/channel.model.js";
 
 export async function addVideo(req, res) {
   try {
-    const { channelId, title, videoURL, thumbnailURL, description } = req.body; // Getting the video details from request body
+    const { channelId, title, videoURL, thumbnailURL, category, description } =
+      req.body; // Getting the video details from request body
 
     // Creating video with the provided details
     const video = await videoModel.create({
@@ -11,6 +12,7 @@ export async function addVideo(req, res) {
       title,
       videoURL,
       thumbnailURL,
+      category,
       description,
     });
 
@@ -21,7 +23,7 @@ export async function addVideo(req, res) {
         if (video) {
           return res
             .status(200)
-            .json({ message: "Video Uploaded Successfully" });
+            .json({ message: "Video Uploaded Successfully", video });
         }
       })
       .catch((err) => {

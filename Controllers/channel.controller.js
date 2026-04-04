@@ -67,3 +67,15 @@ export async function getChannelById(req, res) {
     return res.status(500).json({ message: "Internal Server Error" });
   }
 }
+
+export async function getUserChannelList(req, res) {
+  try {
+    const { user } = req; // getting the user details from request
+    // Finding user channels by user id
+    const userChannels = await channelModel.find({ userId: user.userId });
+    // Sending an appropriate response based on success
+    return res.status(200).json({ channelList: userChannels });
+  } catch (error) {
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+}

@@ -1,6 +1,7 @@
 import {
   createChannel,
   getChannelById,
+  getUserChannelList,
 } from "../Controllers/channel.controller.js";
 import { authenticateUser } from "../Middlewares/authenticateUser.js";
 
@@ -10,4 +11,6 @@ export const channelRoutes = (app) => {
   app.post("/api/channel", authenticateUser, createChannel);
   // GET- Get Channel Details
   app.get("/api/channel/:id", getChannelById);
+  // GET- Get User Channel List
+  app.get("/api/channel-list", authenticateUser, getUserChannelList);
 };

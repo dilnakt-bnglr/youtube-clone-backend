@@ -62,7 +62,9 @@ export async function userLogin(req, res) {
       "secretKey",
     );
     // Send the token in the response
-    return res.status(200).json({ token, user: { name: data.userName } });
+    return res
+      .status(200)
+      .json({ token, user: { name: data.userName, userId: data._id } });
   } catch (error) {
     return res.status(500).json({ message: "Internal Server Error" });
   }
