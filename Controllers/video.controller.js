@@ -1,5 +1,6 @@
 import videoModel from "../Models/video.model.js";
 import channelModel from "../Models/channel.model.js";
+import commentModel from "../Models/comment.model.js";
 
 export async function addVideo(req, res) {
   try {
@@ -72,8 +73,10 @@ export async function getVideoById(req, res) {
     const { channelId } = video;
     // Finding the channel with channelId
     const channelDetails = await channelModel.findById(channelId);
+    // Fetching the video comments
+    const comments = await commentModel.find({ videoId });
     // Sending response with video and channel details
-    return res.status(200).json({ video, channelDetails });
+    return res.status(200).json({ video, channelDetails, comments });
   } catch (error) {
     return res.status(500).json({ message: "Internal Server Error" });
   }
