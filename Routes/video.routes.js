@@ -1,5 +1,6 @@
 import {
   addVideo,
+  deleteVideoById,
   getVideoById,
   getVideos,
 } from "../Controllers/video.controller.js";
@@ -13,4 +14,6 @@ export const videoRoutes = (app) => {
   app.get("/api/videos", getVideos);
   // GET - Fetching video details by Id
   app.get("/api/video/:id", getVideoById);
+  // DELETE - Deleting video by Id
+  app.delete("/api/video/:id", authenticateUser, deleteVideoById);
 };
