@@ -45,3 +45,27 @@ export async function deleteCommentById(req, res) {
     return res.status(500).json({ message: "Internal Server Error" });
   }
 }
+
+export async function updateCommentById(req, res) {
+  try {
+    const commentId = req.params.id; // Get the comment id from request params
+    const { comment } = req.body; // Get the updated comment from request body
+
+    // Checking if the comment with the id exists or not
+    const commentToUpdate = await commentModel.findById(commentId);
+    // Error handling if comment not found
+    if (!commentToUpdate) {
+      return res.status(400).json({ message: "No comment found" });
+    }
+    // Finding the comment to update by id and updating to new comment
+    const updatedComment = await commentModel.findByIdAndUpdate(
+      commentId,
+      { comment: comment },
+      { new: true },
+    );
+    // Sending appropriate response based on the success
+    return res.status(200).json({ updatedComment });
+  } catch (error) {
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+}
