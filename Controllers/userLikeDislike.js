@@ -78,8 +78,12 @@ export async function addUserLikeDislike(req, res) {
         userId: user.userId,
         videoId,
       });
+      // getting the total likes for video
+      const totalLikes = await likeModel.find({ videoId });
       // Sending appropriate response
-      return res.status(201).json({ isUserDisliked: true, isUserLiked: false });
+      return res
+        .status(201)
+        .json({ isUserDisliked: true, isUserLiked: false, totalLikes });
     }
   } catch (error) {
     return res.status(500).json({ message: "Internal Server Error" });
