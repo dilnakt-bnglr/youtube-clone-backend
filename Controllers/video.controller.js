@@ -2,6 +2,7 @@ import videoModel from "../Models/video.model.js";
 import channelModel from "../Models/channel.model.js";
 import commentModel from "../Models/comment.model.js";
 
+// Adding video
 export async function addVideo(req, res) {
   try {
     const { channelId, title, videoURL, thumbnailURL, category, description } =
@@ -23,7 +24,7 @@ export async function addVideo(req, res) {
       .then((video) => {
         if (video) {
           return res
-            .status(200)
+            .status(201)
             .json({ message: "Video Uploaded Successfully", video });
         }
       })
@@ -35,6 +36,7 @@ export async function addVideo(req, res) {
   }
 }
 
+// Fetching the all videos
 export async function getVideos(req, res) {
   try {
     let videos = await videoModel.find(); // Getting all the videos
@@ -60,6 +62,7 @@ export async function getVideos(req, res) {
   }
 }
 
+// Fetching Video by Id
 export async function getVideoById(req, res) {
   try {
     const videoId = req.params.id; // Get the video id from request params
@@ -82,6 +85,7 @@ export async function getVideoById(req, res) {
   }
 }
 
+// Deleting video by Id
 export async function deleteVideoById(req, res) {
   try {
     const videoId = req.params.id; // Get the video id from request params
@@ -100,6 +104,7 @@ export async function deleteVideoById(req, res) {
   }
 }
 
+// Updating video by Id
 export async function updateVideoById(req, res) {
   try {
     const videoId = req.params.id; // Get the video id from request params

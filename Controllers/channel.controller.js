@@ -29,7 +29,7 @@ export async function createChannel(req, res) {
       .save()
       .then((channel) => {
         if (channel) {
-          return res.status(200).json({
+          return res.status(201).json({
             message: "Channel created successfully",
             channelId: channel._id,
           });
@@ -68,6 +68,7 @@ export async function getChannelById(req, res) {
   }
 }
 
+// fetching the user channel list
 export async function getUserChannelList(req, res) {
   try {
     const { user } = req; // getting the user details from request

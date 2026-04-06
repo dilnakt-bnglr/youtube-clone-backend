@@ -4,6 +4,7 @@ import { userRoutes } from "./Routes/user.routes.js";
 import { channelRoutes } from "./Routes/channel.routes.js";
 import { videoRoutes } from "./Routes/video.routes.js";
 import { commentRoutes } from "./Routes/comment.routes.js";
+import { likeDislikeRoutes } from "./Routes/likes.routes.js";
 import cors from "cors";
 
 // Creating an express server
@@ -24,3 +25,4 @@ userRoutes(app);
 channelRoutes(app);
 videoRoutes(app);
 commentRoutes(app);
+likeDislikeRoutes(app);

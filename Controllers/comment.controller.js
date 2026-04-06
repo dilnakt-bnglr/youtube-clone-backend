@@ -1,10 +1,11 @@
 import commentModel from "../Models/comment.model.js";
 
+// Adding Comment
 export async function addComment(req, res) {
   try {
     const { user } = req; // getting the user details from request
 
-    const { videoId, comment } = req.body; // // Getting the comment details from request body
+    const { videoId, comment } = req.body; // Getting the comment details from request body
 
     // Creating comment with the provided details
     const userComment = await commentModel.create({
@@ -18,7 +19,7 @@ export async function addComment(req, res) {
     userComment
       .save()
       .then((comment) => {
-        return res.status(200).json({ comment });
+        return res.status(201).json({ comment });
       })
       .catch((err) => {
         return res.status(400).json({ message: "Failed to add comment" });
@@ -28,6 +29,7 @@ export async function addComment(req, res) {
   }
 }
 
+// Delete comment by Id
 export async function deleteCommentById(req, res) {
   try {
     const commentId = req.params.id; // Get the comment id from request params
@@ -46,6 +48,7 @@ export async function deleteCommentById(req, res) {
   }
 }
 
+// Update Comment by Id
 export async function updateCommentById(req, res) {
   try {
     const commentId = req.params.id; // Get the comment id from request params
@@ -63,7 +66,7 @@ export async function updateCommentById(req, res) {
       { comment: comment },
       { new: true },
     );
-    // Sending appropriate response based on the success
+    // Sending appropriate response based on the
     return res.status(200).json({ updatedComment });
   } catch (error) {
     return res.status(500).json({ message: "Internal Server Error" });
