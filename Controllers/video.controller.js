@@ -99,3 +99,27 @@ export async function deleteVideoById(req, res) {
     return res.status(500).json({ message: "Internal Server Error" });
   }
 }
+
+export async function updateVideoById(req, res) {
+  try {
+    const videoId = req.params.id; // Get the video id from request params
+    const { title, videoURL, thumbnailURL, category, description } = req.body; // Get the updated video details from request body
+
+    // Checking if the video with the id exists
+    const videoToUpdate = await videoModel.findById(videoId);
+    // Error handling if video not found
+    if (!videoToUpdate) {
+      return res.status(400).json({ message: "No video found" });
+    }
+    // Finding the video to update by id and updating with new details
+    const updatedVideo = await videoModel.findByIdAndUpdate(
+      videoId,
+      { title, videoURL, thumbnailURL, category, description },
+      { new: true },
+    );
+    // Sending appropriate response based on the success
+    return res.status(200).json({ updatedVideo });
+  } catch (error) {
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+}

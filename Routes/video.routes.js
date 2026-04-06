@@ -3,6 +3,7 @@ import {
   deleteVideoById,
   getVideoById,
   getVideos,
+  updateVideoById,
 } from "../Controllers/video.controller.js";
 import { authenticateUser } from "../Middlewares/authenticateUser.js";
 
@@ -16,4 +17,6 @@ export const videoRoutes = (app) => {
   app.get("/api/video/:id", getVideoById);
   // DELETE - Deleting video by Id
   app.delete("/api/video/:id", authenticateUser, deleteVideoById);
+  // PUT - Updating video details by Id
+  app.put("/api/video/:id", authenticateUser, updateVideoById);
 };
