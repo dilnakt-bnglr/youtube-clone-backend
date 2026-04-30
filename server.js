@@ -1,4 +1,5 @@
 import express from "express";
+import dotenv from "dotenv";
 import { dbConnect } from "./dbConnection.js";
 import { userRoutes } from "./Routes/user.routes.js";
 import { channelRoutes } from "./Routes/channel.routes.js";
@@ -6,6 +7,8 @@ import { videoRoutes } from "./Routes/video.routes.js";
 import { commentRoutes } from "./Routes/comment.routes.js";
 import { likeDislikeRoutes } from "./Routes/likes.routes.js";
 import cors from "cors";
+
+dotenv.config();
 
 // Creating an express server
 const app = new express();
